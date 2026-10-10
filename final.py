@@ -11,7 +11,7 @@ moves = 0
 saved_file = "game_stats.txt"
 #file for the starts
 # NS
-with open ("hand.txt", "r") as file:
+with open ("game_stats.txt", "r") as file:
     saved_stats = file.read().split(",")
 win = int(saved_stats[0])
 loss = int(saved_stats[1])
