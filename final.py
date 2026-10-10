@@ -42,11 +42,28 @@ def room1(invintory):
                     if retry_puzzle.lower() != "yes":
                         break
             elif choice_room1 == "2":
-                print("You look around the classroom but find nothing of interest.")
+                print("You look around the classroom but suddenly hear a few steps behind you.")
+                print("You quickly turn around but see no one there.")
+                print("The classroom feels eerie and quiet after that.")
+                print("You feel a chill run down your spine.")
+                print("You can't shake off the feeling that someone is watching you.")
+                print("You decide to stay alert and proceed with caution.")
+                print("You continue to search the classroom carefully, hoping to find any clues or useful items.")
+                print("Despite the eerie feeling, you manage to find a small key hidden under a desk.")
+                invintory.append("key")
+                print("You put the key into your inventory.")
+                print("You feel a sense of accomplishment for finding the key.")
+                print("You decide to keep searching the classroom for any other hidden items.")
+                print("However, you don't find anything else of interest.")
+                print("you leave the classroom with happiness for finding the key.")
+                current_room = "room3"
             elif choice_room1 == "3":
                 print("Inventory:", invintory)
+                input("Press Enter to continue...")
+                current_room = "room1"
             elif choice_room1 == "4":
                 print("The north door is locked.")
+                current_room = "room1"
             else:
                 print("Invalid choice. Please try again.")
 
@@ -57,6 +74,7 @@ def room1(invintory):
 #functions for room 6
 #game function
 # game starting 
-
+ if __name__ == "__main__":
+     main()
 
     
