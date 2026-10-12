@@ -1,7 +1,7 @@
 # AL, EG, JT , NS
-#invintory
+# inventory
 #NS
-invintntory = []
+inventory = []
 #items
 #NS
 items = 0
@@ -9,7 +9,7 @@ items = 0
 moves = 0
 #game stats
 saved_file = "game_stats.txt"
-#file for the starts
+#file for the stats
 # NS
 with open ("game_stats.txt", "r") as file:
     saved_stats = file.read().split(",")
@@ -20,7 +20,7 @@ def room1(invintory):
     print("you are in the classroom")
     print("the north door is locked")
 
-    if "key" in invintory:
+    if "key" in inventory:
         print("you can use the key to unlock the north door")
     else:
         while True:
@@ -74,7 +74,3 @@ def room1(invintory):
 #functions for room 6
 #game function
 # game starting 
- if __name__ == "__main__":
-     main()
-
-    
