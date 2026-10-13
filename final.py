@@ -1,209 +1,341 @@
-# AL, EG, JT , NS
-#game loading screen
+# AL, EG, JT, NS
+# HORROR ADVENTURE GAME
 
 
+print("=" * 30 + " W E L C O M E " + "=" * 30)
 
-# inventory
-#NS
+
+# GAME DATA
+
 inventory = []
-#items
-#NS
-items = 0
-#moves
-moves = 0
-#game stats
 saved_file = "game_stats.txt"
-#file for the stats
-# NS
-with open ("game_stats.txt", "r") as file:
-    saved_stats = file.read().split(', ')
-win = int(saved_stats[0])
-loss = int(saved_stats[1])
-#functions for room 1
-def room1(invintory):
-    print("you are in the classroom")
-    print("the north door is locked")
 
-    if "key" in inventory:
-        print("you can use the key to unlock the north door")
+# Read the saved game stats
+with open(saved_file, "r") as file:
+    saved_stats = file.read().split(",")
+
+wins = int(saved_stats[0])
+losses = int(saved_stats[1])
+
+
+def save_game_stats():
+    with open(saved_file, "w") as file:
+        file.write(f"{wins},{losses}")
+
+
+def show_inventory():
+    if inventory:
+        print("Inventory:", ", ".join(inventory))
     else:
-        while True:
-            print("What do you want to do?")
-            print("1. Solve the puzzle")
-            print("2. Look around the classroom")
-            print("3. Check inventory")
-            print("4. Go north")
-            choice_room1 = input("Enter your choice: ")
-            if choice_room1 == "1":
-                key_puzzle = input("Solve this puzzle to get the master key: What has keys but can't open locks? ")
-                if key_puzzle.lower() == "piano":
-                    print("You solved the puzzle and obtained the master key!")
-                    invintory.append("master key")
-                    break
-                else:
-                    print("Incorrect answer. You cannot get the master key.")
-                    retry_puzzle = input("Do you want to try the puzzle again? (yes/no) ")
-                    if retry_puzzle.lower() != "yes":
-                        break
-            elif choice_room1 == "2":
-                print("You look around the classroom but suddenly hear a few steps behind you.")
-                print("You quickly turn around but see no one there.")
-                print("The classroom feels eerie and quiet after that.")
-                print("You feel a chill run down your spine.")
-                print("You can't shake off the feeling that someone is watching you.")
-                print("You decide to stay alert and proceed with caution.")
-                print("You continue to search the classroom carefully, hoping to find any clues or useful items.")
-                print("Despite the eerie feeling, you manage to find a small key hidden under a desk.")
-                invintory.append("key")
-                print("You put the key into your inventory.")
-                print("You feel a sense of accomplishment for finding the key.")
-                print("You decide to keep searching the classroom for any other hidden items.")
-                print("However, you don't find anything else of interest.")
-                print("you leave the classroom with happiness for finding the key.")
-                current_room =  "room3"
-                break
-            elif choice_room1 == "3":
-                print("Inventory:", invintory)
-                input("Press Enter to continue...")
-                current_room = "room1"
-                break
-            elif choice_room1 == "4":
-                print("The north door is locked.")
-                current_room = "room1"
-            else:
-                print("Invalid choice. Please try again.")
-#EG
-#functions for room 2
-def room2(inventory):
-    print("you are in the hallway, but freedom is far away. Guarding the corridor are the dreaded Trip")
-    print("you look around, but you recognize nothing that looks fimliar ")
-    print("you see a door at th end of the hallway")
-    print("as you keep walking towards the invintory, you hear something from the south classroom ")
+        print("Your inventory is empty.")
+
+# ROOM 1:
+
+
+def room1():
+    print("\n--- ROOM 1: CLASSROOM ---")
+    print("You are in an abandoned classroom.")
+    print("The north door is locked.")
+
     while True:
-        print("where do you wanna go?")
-        print("(1) go to the south classroom")
-        print("(2) go to the door at the end of the hallway")
-        print("(3) go back to the the classroom")
-        choice_room2 = input("enter your choice: ")
-        if choice_room2 == "1":
-            print("you walk back after hearing the sounds, hoping to find someone or something")
-            print("unfotnately theres nothing in this room except a flahslight")
-            flashlight_room2= input ("do you wanna (1) grab the flashlight or (2)leave the flashlight and go back to the hallway")
-            if flashlight_room2 == "1":
-                inventory.append("flashlight")
-                break
-            if flashlight_room2 == "2":
-                return room2
+        print("\n1. Solve the puzzle")
+        print("2. Look around the classroom")
+        print("3. Check inventory")
+        print("4. Go north")
+
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            answer = input(
+                "What has keys but cannot open locks? "
+            ).strip().lower()
+
+            if answer == "piano":
+                print("Correct! You found the master key.")
+                if "master key" not in inventory:
+                    inventory.append("master key")
             else:
-                print("please eneter actual things:))")
-                break
-        if choice_room2 == "2":
-            if "hallway_key" in inventory :
-                print("you have the key you may go inisde ")
-                current_room = "room5"
-                break
+                print("Wrong answer! Try again.")
+
+        elif choice == "2":
+            if "key" in inventory:
+                print("You have already searched this classroom.")
             else:
-                key_room2 = input("uh-oh you dont have a key do you wanna go to room 1 to get a key?(y/n)").strip().lower()
-                if key_room2 == "y" or "yes":
-                    current_room = room1
-                if key_room2 == "n":
-                    print("great, you're still stuck here")
-                    return room2
-                else:
-                    print("idk, man do smt pls")
-                    break
-        if choice_room2 == "3":
-            print("you go back to the classroom")
-            current_room = "room1"
-            break
-#functions fo
-#NS
-def room3(inventory):
-    print("you are in the halway, but freedom is far away. Guarding the corridor are the dreaded Trip")
-    print("you look around, but you recognize nothing that looks fimliar ")
-    print("you see a door at th end of the hallway")
-    print("as you keep walking towards the invintory, you hear something from the south classroom ")
-    while True:
-        print("where do you wanna go?")
-        print("(1) go to the south classroom")
-        print("(2) go to the door at the end of the hallway")
-        print("(3) go back to the the classroom")
-        choice_room3 = input("enter your choice: ")
-        if choice_room3 == "1":
-            print("you walk back after hearing the sounds, hoping to find someone or something")
-            print("unfotnately theres nothing in this room except a flahslight")
-            flashlight_room3= input ("do you wanna (1) grab the flashlight or (2)leave the flashlight and go back to the hallway")
-            if flashlight_room3 == "1":
-                inventory.append("flashlight")
-                break
-            if flashlight_room3 == "2":
-                return room3
+                print("You hear footsteps behind you...")
+                print("You turn around, but nobody is there.")
+                print("Under a desk, you discover a small key!")
+                inventory.append("key")
+
+        elif choice == "3":
+            show_inventory()
+
+        elif choice == "4":
+            if "master key" in inventory:
+                print("The master key unlocks the north door!")
+                return "room2"
             else:
-                print("please eneter actual things:))")
-                break
-        if choice_room3 == "2":
-            if "hallway_key" in inventory :
-                print("you have the key you may go inisde ")
-                current_room = "room5"
-                break
-            else:
-                key_room3 = input("uh-oh you dont have a key do you wanna go to room 1 to get a key?(y/n)").strip().lower()
-                if key_room3 == "y" or "yes":
-                    current_room = room1
-                if key_room3 == "n":
-                    print("great, you're still stuck here")
-                    return room3
-                else:
-                    print("idk, man do smt pls")
-                    break
-        if choice_room3 == "3":
-            print("you go back to the classroom")
-            current_room = "room1"
-            break
+                print("The door needs the master key.")
+                print("Solve the puzzle to obtain it.")
+
         else:
-            break
-#functions for room 4
-#AL
-def room4(inentory):
-    print("The sad truth is that the exit door is not near and you have to face idk Queen Elizabeth II")
-    while True :    
-        choice_room4 = ("What you want to do (1)Throw her beascuits with acid (2) Blow her up to reduce her to ashes (3) Kick her to the Big Ben")
-        if choice_room4 == "1":
-            print("It worked !! The Queen is gonne, but so is part of the floor")
-            print("Sadly you will lose points for that")
-        elif choice_room4 == "2" :
-            print("Surprisingly the queen disappeared within the air.")
-            print("And between the ashes remaining, you find a royal key that the queen kept.")
-            print("It might be useful later.")        
-        elif choice_room4 == "3" : 
-            print("What a horrible idea.")
-            print("Despite the Queen seem like a raisin, her weigth is enough to keep her from flying across an ocean.")
-            print("She kick you out of the room, so you need yo restart")
-            return room4 
-#function for room 5    
-#JT   
-def room5(inventory)
-    print("You find yourself surrounded by mushrooms.")
-    print("There is a red and white mushrooms taubting you to eat.")
-    print("You haven't eaten in so long you are starving." )
-    print("You want to eat it put there is something wrong with it")
+            print("Invalid choice. Try again.")
+
+
+# ROOM 2
+
+def room2():
+    print("\n--- ROOM 2: HALLWAY ---")
+    print("A dark hallway stretches before you.")
+    print("You hear something moving in the south classroom.")
+
     while True:
-        print("What do you wan't to do.")
-        print ("(1) Eat the mushroom maybe it will give you super powers.")
-        print("(2) Leave it behind it's too creepy")
-        print("(3)Store it in your inventory it might be usful latter")
-        choice1_room5 = input("Enter your choice:")
-        if choice1_room5 == "1":
-            print("You eat it, you wait for something but notthing happens so you start your journy through Room 5.")
-            print("You find a massive castle in the distance. It looks beautiful, the windows blind you dispite your distance")
-            print("You tred forward. As walking you hear something in the distance it sounds like a yell of joy.")
-            print("It gets louder and louder but it just stops.")
-            print("That sound terrifies you.")
-            print("You want to find shelter but you also feel it would be safe to keep moving.")
-            
-        choice2_room5 = 
+        print("\n1. Enter the south classroom")
+        print("2. Go to the door at the end")
+        print("3. Return to the classroom")
+        print("4. Check inventory")
 
-#functions for room 6
-#game function
-# game starting 
+        choice = input("Enter your choice: ").strip()
 
+        if choice == "1":
+            print("\nYou enter the south classroom.")
+
+            if "flashlight" not in inventory:
+                print("You find a flashlight and a hallway key!")
+                inventory.append("flashlight")
+                inventory.append("hallway_key")
+            else:
+                print("The classroom is empty.")
+
+        elif choice == "2":
+            if "hallway_key" in inventory:
+                print("You unlock the door and enter.")
+                return "room4"
+            else:
+                print("The door is locked.")
+                print("Search the south classroom for a key.")
+
+        elif choice == "3":
+            return "room1"
+
+        elif choice == "4":
+            show_inventory()
+
+        else:
+            print("Invalid choice. Try again.")
+
+
+
+# ROOM 4: 
+
+
+def room4():
+    print("\n--- ROOM 4: JANITOR'S ROOM ---")
+    print("You enter a room near the exit.")
+    print("Suddenly, the old janitor appears!")
+    print('"Why are you not in class?" he demands.')
+    print("You must act quickly!")
+
+    while True:
+        print("\n1. Throw a bucket of water")
+        print("2. Throw a book")
+        print("3. Run back to the hallway")
+
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            print("The janitor slips on the wet floor!")
+            print("You escape, but make a terrible mess.")
+            print("You lose one point... just kidding!")
+            return "room5"
+
+        elif choice == "2":
+            print("The book hits the janitor.")
+            print("He falls asleep, dropping a strange key!")
+            print("You pick up the janitor key.")
+            if "janitor key" not in inventory:
+                inventory.append("janitor key")
+            return "room5"
+
+        elif choice == "3":
+            print("You run back to the hallway.")
+            return "room2"
+
+        else:
+            print("Choose 1, 2, or 3.")
+
+
+
+# ROOM 5: 
+
+def room5():
+    print("\n--- ROOM 5: MUSHROOM FOREST ---")
+    print("You find yourself surrounded by mushrooms.")
+    print("A strange red-and-white mushroom catches your eye.")
+    print("In the distance, you see a beautiful castle.")
+    print("Suddenly, a mysterious scream echoes through the forest!")
+
+    while True:
+        print("\n1. Eat the mushroom")
+        print("2. Leave it and keep moving")
+        print("3. Store the mushroom")
+        print("4. Check inventory")
+
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            print("You eat the mushroom...")
+            print("Everything spins, and you collapse!")
+            print("GAME OVER!")
+            return "game_over"
+
+        elif choice == "2":
+            print("You wisely leave the mushroom alone.")
+            print("You follow a path toward the dark forest.")
+            return "room6"
+
+        elif choice == "3":
+            if "mushroom" not in inventory:
+                inventory.append("mushroom")
+                print("You carefully store the mushroom.")
+            else:
+                print("You already have a mushroom.")
+
+        elif choice == "4":
+            show_inventory()
+
+        else:
+            print("Invalid choice. Try again.")
+
+
+
+# ROOM 6:
+
+
+def room6():
+    print("\n--- ROOM 6: DARK FOREST ---")
+    print("The trees are tall and twisted.")
+    print("Fog covers the ground.")
+    print("You hear growling somewhere behind you.")
+
+    if "flashlight" in inventory:
+        print("Your flashlight helps you see a hidden path.")
+    else:
+        print("You struggle to see through the darkness.")
+
+    while True:
+        print("\n1. Explore the forest")
+        print("2. Search for an exit")
+        print("3. Check inventory")
+
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            print("Glowing eyes appear between the trees!")
+            print("You run before the creature catches you.")
+            print("You discover a path leading to a castle.")
+            return "finalroom7"
+
+        elif choice == "2":
+            print("You follow a faint trail through the fog.")
+            print("At last, you discover a mysterious door.")
+            return "finalroom7"
+
+        elif choice == "3":
+            show_inventory()
+
+        else:
+            print("Invalid choice. Try again.")
+
+
+
+# ROOM 7
+
+def finalroom7():
+    global wins, losses
+
+    print("\n--- FINAL ROOM ---")
+    print("You find a massive door with a keypad.")
+    print("A note reads: 'The escape code is 1234.'")
+
+    code = input("Enter the four-digit code: ").strip()
+
+    if code == "1234":
+        print("\nThe door opens!")
+        print("CONGRATULATIONS! YOU ESCAPED!")
+        wins += 1
+        save_game_stats()
+        return "victory"
+
+    else:
+        print("\nThe code is incorrect.")
+        print("The door locks, and you are trapped!")
+        print("GAME OVER!")
+        losses += 1
+        save_game_stats()
+        return "game_over"
+
+
+# mail game loop
+def game():
+    global wins, losses
+
+    inventory.clear()
+    current_room = "room1"
+
+    print("\nWelcome to the Horror Adventure Game!")
+    print("Find keys, explore rooms, and escape the building.")
+
+    while current_room not in ("victory", "game_over", "quit"):
+
+        if current_room == "room1":
+            current_room = room1()
+
+        elif current_room == "room2":
+            current_room = room2()
+
+        elif current_room == "room4":
+            current_room = room4()
+
+        elif current_room == "room5":
+            current_room = room5()
+
+        elif current_room == "room6":
+            current_room = room6()
+
+        elif current_room == "finalroom7":
+            current_room = finalroom7()
+
+        else:
+            print("Something went wrong. Returning to the classroom.")
+            current_room = "room1"
+
+    print("\n========== GAME STATS ==========")
+    print("Wins:", wins)
+    print("Losses:", losses)
+    print("================================")
+
+    return current_room
+
+
+
+def start_game():
+    while True:
+        result = game()
+
+        if result == "victory":
+            print("You survived the adventure!")
+
+        elif result == "game_over":
+            print("Better luck next time!")
+
+        again = input(
+            "\nWould you like to play again? (yes/no): "
+        ).strip().lower()
+
+        if again not in ("yes", "y"):
+            print("Thanks for playing! Goodbye!")
+            break
+
+
+if __name__ == "__main__":
+    start_game()
