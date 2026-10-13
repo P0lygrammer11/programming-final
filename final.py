@@ -16,7 +16,7 @@ saved_file = "game_stats.txt"
 #file for the stats
 # NS
 with open ("game_stats.txt", "r") as file:
-    saved_stats = file.read().split(",")
+    saved_stats = file.read().split(', ')
 win = int(saved_stats[0])
 loss = int(saved_stats[1])
 #functions for room 1
