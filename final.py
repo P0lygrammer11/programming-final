@@ -17,19 +17,31 @@ with open(saved_file, "r") as file:
 wins = int(saved_stats[0])
 losses = int(saved_stats[1])
 
+# AL, EG, JT, NS
+# HORROR ADVENTURE GAME
+
+
+print("=" * 30 + " W E L C O M E " + "=" * 30)
+
+
+# GAME DATA
 
 def save_game_stats():
+    # Save the total wins and losses so they remain after the game closes.
     with open(saved_file, "w") as file:
         file.write(f"{wins},{losses}")
 
 
 def show_inventory():
+    # Display the items the player has collected.
     if inventory:
         print("Inventory:", ", ".join(inventory))
     else:
         print("Your inventory is empty.")
 
-# ROOM 1:
+
+# ROOM 1: CLASSROOM
+# AL: Classroom puzzle and key system
 
 
 def room1():
@@ -54,6 +66,8 @@ def room1():
                 print("Correct! You found the master key.")
                 if "master key" not in inventory:
                     inventory.append("master key")
+                else:
+                    print("You already have the master key.")
             else:
                 print("Wrong answer! Try again.")
 
@@ -81,7 +95,9 @@ def room1():
             print("Invalid choice. Try again.")
 
 
-# ROOM 2
+# ROOM 2: HALLWAY
+# EG: Hallway exploration and key collection
+
 
 def room2():
     print("\n--- ROOM 2: HALLWAY ---")
@@ -124,8 +140,8 @@ def room2():
             print("Invalid choice. Try again.")
 
 
-
-# ROOM 4: 
+# ROOM 4: JANITOR'S ROOM
+# EG: Janitor encounter and player choices
 
 
 def room4():
@@ -152,8 +168,10 @@ def room4():
             print("The book hits the janitor.")
             print("He falls asleep, dropping a strange key!")
             print("You pick up the janitor key.")
+
             if "janitor key" not in inventory:
                 inventory.append("janitor key")
+
             return "room5"
 
         elif choice == "3":
@@ -164,8 +182,9 @@ def room4():
             print("Choose 1, 2, or 3.")
 
 
+# ROOM 5: MUSHROOM FOREST
+# JT: Mushroom choices and the lose condition
 
-# ROOM 5: 
 
 def room5():
     print("\n--- ROOM 5: MUSHROOM FOREST ---")
@@ -207,8 +226,8 @@ def room5():
             print("Invalid choice. Try again.")
 
 
-
-# ROOM 6:
+# ROOM 6: DARK FOREST
+# JT: Forest exploration and path choices
 
 
 def room6():
@@ -247,12 +266,11 @@ def room6():
             print("Invalid choice. Try again.")
 
 
+# ROOM 7: FINAL ROOM
+# NS: Final escape challenge and win condition
 
-# ROOM 7
 
 def finalroom7():
-    global wins, losses
-
     print("\n--- FINAL ROOM ---")
     print("You find a massive door with a keypad.")
     print("A note reads: 'The escape code is 1234.'")
@@ -262,20 +280,19 @@ def finalroom7():
     if code == "1234":
         print("\nThe door opens!")
         print("CONGRATULATIONS! YOU ESCAPED!")
-        wins += 1
-        save_game_stats()
         return "victory"
 
     else:
         print("\nThe code is incorrect.")
         print("The door locks, and you are trapped!")
         print("GAME OVER!")
-        losses += 1
-        save_game_stats()
         return "game_over"
 
 
-# mail game loop
+# MAIN GAME LOOP
+# NS: Connect the rooms and update saved game statistics
+
+
 def game():
     global wins, losses
 
@@ -284,6 +301,8 @@ def game():
 
     print("\nWelcome to the Horror Adventure Game!")
     print("Find keys, explore rooms, and escape the building.")
+    print("Choose a number from each menu to play.")
+    print("Collect items, solve puzzles, and avoid danger!")
 
     while current_room not in ("victory", "game_over", "quit"):
 
@@ -309,6 +328,16 @@ def game():
             print("Something went wrong. Returning to the classroom.")
             current_room = "room1"
 
+    # Count the result once after each completed playthrough.
+    if current_room == "victory":
+        wins += 1
+    elif current_room == "game_over":
+        losses += 1
+
+    # Save the updated totals so they carry over to future runs.
+    if current_room in ("victory", "game_over"):
+        save_game_stats()
+
     print("\n========== GAME STATS ==========")
     print("Wins:", wins)
     print("Losses:", losses)
@@ -316,6 +345,9 @@ def game():
 
     return current_room
 
+
+# REPLAY MENU
+# AL: Allow the player to start another adventure
 
 
 def start_game():
